@@ -1,0 +1,119 @@
+{
+  "config_text": [
+    "newtype polynomial, _Polynomial, get_coeffs\n\ndef Polynomial(xs):\n    coeffs = list(xs)\n    i = len(coeffs)\n    while i > 0:\n        if coeffs[i-1]:\n            return _Polynomial(slice(coeffs,i))\n        i -= 1\n    return _Polynomial([])\n    \ndel _Polynomial\n\nextended +(pol1, pol2):\n    c1 = get_coeffs(pol1)\n    c2 = get_coeffs(pol2)\n    if len(c1) < len(c2):\n        c1 += [0]*(len(c2)-len(c1))\n    else:\n        c2 += [0]*(len(c1)-len(c2))\n    c3 = [v[0]+v[1] for v in zip(c1,c2)]\n    return Polynomial(c3)\n\nextended *(pol1, pol2):\n    c1 = get_coeffs(pol1)\n    c2 = get_coeffs(pol2)\n    res = [0] * (len(c1)+len(c2)-1)\n    for i in range(len(c1)):\n        for j in range(len(c2)):\n            res[i+j] += c1[i]*c2[j]\n    return Polynomial(res)\n\ndef enumerate(lst):\n    lst = list(lst)\n    return [[i, lst[i]] for i in range(len(lst))]\n\ndef reverse(lst):\n    if not (lst : list):\n        raise InvalidArgumentsError\n    l = len(lst)\n    return [lst[l-1-i] for i in range(l)]\n\nextend str(pol):\n    c = get_coeffs(pol)\n    if c == []:\n        return \"0\"\n    if len(c) == 1:\n        return str(c[0])\n    p = enumerate(c)\n    last_c_str = if c[-1] == 1 then \"\" else if c[-1] == -1 then \"-\" else str(c[-1])\n    s = last_c_str + if len(c) > 2 then \"x^\" + str(p[-1][0]) else \"x\"\n    for i in slice(p, -2, None, -1):\n        xpow = if i[0] > 1 then \"x^\" + str(i[0]) else if i[0] == 1 then \"x\" else  \"\"\n        if not (i[1] : int) and not (i[1] : float) or i[1] > 0:\n            s += \"+\" + (if i[1] == 1 and i[0] then \"\" else str(i[1])) + xpow\n            continue\n        if i[1] < 0:\n            s += \"-\" + (if i[1] == -1 and i[0] then \"\" else str(-i[1])) + xpow\n    return s\n\nextended __neg__(pol):\n    c = get_coeffs(pol)\n    return Polynomial([-v for v in c])\n    \nextended -(pol1, pol2):\n    return pol1 + -pol2\n\nextend default_formatter(pol, w, h):\n    if not (pol : polynomial):\n        raise InvalidArgumentsError\n    return str(pol)\n\ndef sum(lst):\n    total = 0\n    for item in lst:\n        total += item\n    return total\n\nextend __call__(pol, x):\n    res = 0\n    for c in reverse(get_coeffs(pol)):\n        res = res * x + c\n    return res\n\ndef min(a, b):\n    if a <= b:\n        return a\n    return b\n\ndef max(a, b):\n    if a >= b:\n        return a\n    return b\n\ndef @(matrix1, matrix2):\n    # matrix multiplication\n    if not matrix1 : matrix:\n        raise InvalidArgumentsError\n    if not matrix2 : matrix:\n        raise InvalidArgumentsError\n\n    num_cols1 = len(matrix1)[1]\n    num_rows2 = len(matrix2)[0]\n    if num_cols1 != num_rows2:\n        raise \"Can't multiply matrices with incompatible dimensions\"\n    \n    return [|\n            [\n                sum([v[0]*v[1] for v in zip(row, col)])\n                for col in columns(matrix2)\n            ]\n            for row in rows(matrix1)\n        |]\n\n",
+    null
+  ],
+  "sheets_text": [
+    [
+      [ "Progress bar", [ 2, 8 ] ],
+      [
+        "==\nvalues = B1:7\ndone = sum([v==\"DONE\" for v in values])\nreturn done / len(values)",
+        null
+      ]
+    ],
+    [ [ "Progress bar", [ 2, 7 ] ], [ "TODO", null ] ],
+    [ [ "Progress bar", [ 2, 6 ] ], [ "TODO", null ] ],
+    [ [ "Progress bar", [ 2, 5 ] ], [ "TODO", null ] ],
+    [ [ "Progress bar", [ 2, 4 ] ], [ "DONE", null ] ],
+    [ [ "Progress bar", [ 2, 3 ] ], [ "DONE", null ] ],
+    [ [ "Progress bar", [ 2, 2 ] ], [ "TODO", null ] ],
+    [ [ "Progress bar", [ 2, 1 ] ], [ "DONE", null ] ],
+    [ [ "Progress bar", [ 1, 8 ] ], [ "Progress:", null ] ],
+    [ [ "Progress bar", [ 1, 7 ] ], [ "Task 7", null ] ],
+    [ [ "Progress bar", [ 1, 6 ] ], [ "Task 6", null ] ],
+    [ [ "Progress bar", [ 1, 5 ] ], [ "Task 5", null ] ],
+    [ [ "Progress bar", [ 1, 4 ] ], [ "Task 4", null ] ],
+    [ [ "Progress bar", [ 1, 3 ] ], [ "Task 3", null ] ],
+    [ [ "Progress bar", [ 1, 2 ] ], [ "Task 2", null ] ],
+    [ [ "Progress bar", [ 1, 1 ] ], [ "Task 1", null ] ],
+    [ [ "Polynomials", [ 6, 5 ] ], [ "= A5 - B5", null ] ],
+    [ [ "Polynomials", [ 6, 4 ] ], [ "= A4 - B4", null ] ],
+    [ [ "Polynomials", [ 6, 3 ] ], [ "= A3 - B3", null ] ],
+    [ [ "Polynomials", [ 6, 2 ] ], [ "= A2 - B2", null ] ],
+    [ [ "Polynomials", [ 6, 1 ] ], [ "p1 - p2", null ] ],
+    [ [ "Polynomials", [ 5, 5 ] ], [ "= A5(2.1)", null ] ],
+    [ [ "Polynomials", [ 5, 4 ] ], [ "= A4(2.1)", null ] ],
+    [ [ "Polynomials", [ 5, 3 ] ], [ "= A3(2.1)", null ] ],
+    [ [ "Polynomials", [ 5, 2 ] ], [ "= A2(2.1)", null ] ],
+    [ [ "Polynomials", [ 5, 1 ] ], [ "p1(2.1)", null ] ],
+    [ [ "Polynomials", [ 4, 5 ] ], [ "= A5 * B5", null ] ],
+    [ [ "Polynomials", [ 4, 4 ] ], [ "= A4 * B4", null ] ],
+    [ [ "Polynomials", [ 4, 3 ] ], [ "= A3 * B3", null ] ],
+    [ [ "Polynomials", [ 4, 2 ] ], [ "= A2 * B2", null ] ],
+    [ [ "Polynomials", [ 4, 1 ] ], [ "p1 * p2", null ] ],
+    [ [ "Polynomials", [ 3, 5 ] ], [ "= A5 + B5", null ] ],
+    [ [ "Polynomials", [ 3, 4 ] ], [ "= A4 + B4", null ] ],
+    [ [ "Polynomials", [ 3, 3 ] ], [ "= A3 + B3", null ] ],
+    [ [ "Polynomials", [ 3, 2 ] ], [ "= A2 + B2", null ] ],
+    [ [ "Polynomials", [ 3, 1 ] ], [ "p1 + p2", null ] ],
+    [ [ "Polynomials", [ 2, 5 ] ], [ "=Polynomial([0.5, -1])", null ] ],
+    [ [ "Polynomials", [ 2, 4 ] ], [ "= Polynomial([3,1,0,2])", null ] ],
+    [ [ "Polynomials", [ 2, 3 ] ], [ "= Polynomial([-1,3])", null ] ],
+    [ [ "Polynomials", [ 2, 2 ] ], [ "= Polynomial([2, 3])", null ] ],
+    [ [ "Polynomials", [ 2, 1 ] ], [ "Polynomial 2", null ] ],
+    [ [ "Polynomials", [ 1, 5 ] ], [ "= Polynomial([-0.5,1])", null ] ],
+    [ [ "Polynomials", [ 1, 4 ] ], [ "= Polynomial([2, -1, -1])", null ] ],
+    [ [ "Polynomials", [ 1, 3 ] ], [ "=Polynomial([1,3])", null ] ],
+    [ [ "Polynomials", [ 1, 2 ] ], [ "= Polynomial([1,2])", null ] ],
+    [ [ "Polynomials", [ 1, 1 ] ], [ "Polynomial 1", null ] ],
+    [ [ "Basics", [ 7, 11 ] ], [ "= cell(2, 3)", null ] ],
+    [ [ "Basics", [ 6, 11 ] ], [ "= Polynomials~C1", null ] ],
+    [ [ "Basics", [ 5, 11 ] ], [ "= B1:D3", null ] ],
+    [ [ "Basics", [ 5, 9 ] ], [ "==\nraise \"Custom error\"", null ] ],
+    [ [ "Basics", [ 4, 11 ] ], [ "= B:D2", null ] ],
+    [ [ "Basics", [ 4, 9 ] ], [ "= C9 + 1", null ] ],
+    [ [ "Basics", [ 4, 5 ] ], [ "= sum([i for i in D1:3 if i > 0])", null ] ],
+    [ [ "Basics", [ 4, 3 ] ], [ "-2.1", null ] ],
+    [ [ "Basics", [ 4, 2 ] ], [ "3.14", null ] ],
+    [ [ "Basics", [ 4, 1 ] ], [ "13.5", null ] ],
+    [ [ "Basics", [ 3, 11 ] ], [ "= B1:3", null ] ],
+    [ [ "Basics", [ 3, 9 ] ], [ "= D9 - 1", null ] ],
+    [ [ "Basics", [ 3, 5 ] ], [ "= C1 + C2 + slice(C3, 3, None)", null ] ],
+    [ [ "Basics", [ 3, 3 ] ], [ "OCaml", null ] ],
+    [ [ "Basics", [ 3, 2 ] ], [ "PF", null ] ],
+    [ [ "Basics", [ 3, 1 ] ], [ "text", null ] ],
+    [ [ "Basics", [ 2, 11 ] ], [ "= B1", null ] ],
+    [
+      [ "Basics", [ 2, 9 ] ], [ "= {i := i*i for i in range(50000)}", null ]
+    ],
+    [
+      [ "Basics", [ 2, 7 ] ],
+      [
+        "==\nn = B5\nresult = []\n\nfor a in range(1,n+1):\n    for b in range(a, n+1):\n        c = round((a*a + b*b) ** 0.5)\n        if a*a + b*b == c*c:\n            result += [[a,b,c]]\n                \nreturn result",
+        null
+      ]
+    ],
+    [ [ "Basics", [ 2, 5 ] ], [ "= sum(B1:3)", null ] ],
+    [ [ "Basics", [ 2, 3 ] ], [ "-13", null ] ],
+    [ [ "Basics", [ 2, 2 ] ], [ "5", null ] ],
+    [ [ "Basics", [ 2, 1 ] ], [ "42", null ] ],
+    [ [ "Basics", [ 1, 11 ] ], [ "Cell access:", null ] ],
+    [ [ "Basics", [ 1, 9 ] ], [ "Errors:", null ] ],
+    [ [ "Basics", [ 1, 7 ] ], [ "Code:", null ] ],
+    [ [ "Basics", [ 1, 5 ] ], [ "Formulas:", null ] ],
+    [ [ "Basics", [ 1, 1 ] ], [ "Literals:", null ] ]
+  ],
+  "sheets_formatter": [
+    [
+      [ "Progress bar", [ 2, 8 ] ],
+      [
+        "def progress_bar(value, width, height):\n    result = \"[\"\n    value = max(0, min(1, value))\n    percent = str(int(value*100)) + \"%\"\n    length = width - 2 - len(percent)\n    progress = round(value*length)\n    result += \"#\"*progress\n    result += \".\"*(length-progress)\n    result += \"]\"\n    result += percent\n    return result\n\nreturn progress_bar",
+        null
+      ]
+    ]
+  ],
+  "sheet_names": [ "Basics", "Progress bar", "Polynomials" ],
+  "max_cost": 500000,
+  "default_column_width": 13,
+  "default_row_height": 1,
+  "column_widths": [
+    [ [ "Basics", 2 ], 12 ],
+    [ [ "Basics", 5 ], 19 ],
+    [ [ "Polynomials", 4 ], 25 ],
+    [ [ "Polynomials", 6 ], 15 ],
+    [ [ "Progress bar", 2 ], 15 ]
+  ],
+  "row_heights": [
+    [ [ "Basics", 7 ], 3 ], [ [ "Basics", 9 ], 3 ], [ [ "Basics", 11 ], 3 ]
+  ]
+}

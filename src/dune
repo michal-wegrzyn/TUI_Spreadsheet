@@ -1,0 +1,26 @@
+(executable
+ (name main)
+ (modules
+  ast
+  parser
+  lexer
+  sheet_types
+  spreadsheet
+  print
+  start_env
+  text_service
+  user_manual
+  text_editor
+  app_state
+  main)
+ (libraries re notty notty.unix yojson sek)
+ (preprocess
+  (pps ppx_deriving_yojson))
+ (flags
+  (:standard -warn-error -A)))
+
+(menhir
+ (modules parser))
+
+(ocamllex
+ (modules lexer))
